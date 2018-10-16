@@ -42,6 +42,9 @@ typealias ElementTuple = (range: NSRange, element: ActiveElement, type: ActiveTy
     @IBInspectable open var URLColor: UIColor = .blue {
         didSet { updateTextStorage(parseText: false) }
     }
+    @IBInspectable open var URLUnderlineStyle: NSUnderlineStyle = [] {
+        didSet { updateTextStorage(parseText: false) }
+    }
     @IBInspectable open var URLSelectedColor: UIColor? {
         didSet { updateTextStorage(parseText: false) }
     }
@@ -317,7 +320,9 @@ typealias ElementTuple = (range: NSRange, element: ActiveElement, type: ActiveTy
             switch type {
             case .mention: attributes[NSAttributedString.Key.foregroundColor] = mentionColor
             case .hashtag: attributes[NSAttributedString.Key.foregroundColor] = hashtagColor
-            case .url: attributes[NSAttributedString.Key.foregroundColor] = URLColor
+            case .url:
+                attributes[NSAttributedString.Key.foregroundColor] = URLColor
+                attributes[NSAttributedString.Key.underlineStyle] = URLUnderlineStyle.rawValue
             case .custom: attributes[NSAttributedString.Key.foregroundColor] = customColor[type] ?? defaultCustomColor
             }
             
