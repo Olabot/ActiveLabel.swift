@@ -328,7 +328,9 @@ typealias ElementTuple = (range: NSRange, element: ActiveElement, type: ActiveTy
                 attributes[NSAttributedString.Key.underlineStyle] = URLUnderlineStyle.rawValue
             case .custom:
                 attributes[NSAttributedString.Key.foregroundColor] = customColor[type] ?? defaultCustomColor
-                attributes[NSAttributedString.Key.underlineStyle] = customUnderlineStyle[type]?.rawValue ?? []
+                if let underLineStyle = customUnderlineStyle[type] {
+                    attributes[NSAttributedString.Key.underlineStyle] = underLineStyle.rawValue
+                }
             }
             
             if let highlightFont = hightlightFont {
